@@ -7,19 +7,15 @@ namespace test.Controllers
     [Route("api/users")]
     public class UsersController  : ControllerBase 
     {
-            private readonly PostgresDb _db;
+            private readonly Service _db;
 
         [HttpGet]
-        public User[]  Get()
+        public void  Get()
         {
-            
-            return Ok(new { message = "API funcionando" });
-        }
+        Service servicio = new Service();
+        servicio.Hola();
 
-        [HttpGet("{id}")]
-        public User FindOne()
-        {
-            return Ok(new { message = "API funcionando" });
+        Console.ReadLine();
         }
 
         [HttpPost()]

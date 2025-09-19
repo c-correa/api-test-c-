@@ -1,11 +1,12 @@
 using System;
+using System.Collections.Generic;
 using Npgsql;
 
-public class PostgresDb
+public class ConnectBD
 {
     private readonly string _connectionString;
 
-    public PostgresDb(string connectionString)
+    public ConnectBD(string connectionString)
     {
         _connectionString = connectionString;
     }
@@ -28,4 +29,14 @@ public class PostgresDb
         }
     }
 
+    // Aquí agregamos el método ExecuteQuery
+    public NpgsqlDataReader ExecuteQuery(string query)
+    {
+        var conn = new NpgsqlConnection(_connectionString);
+        conn.Open();
+
+        var cmd = new NpgsqlCommand(query, conn);
+        // Al usar CommandBehavior.CloseConnection, la conexión se cerrará al cerrar el reader
+        return cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+    }
 }

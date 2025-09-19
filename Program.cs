@@ -18,7 +18,7 @@ app.UseHttpsRedirection();
 app.MapControllers();
 
 string connectionString = "Host=dpg-d2oias7fte5s738b7nug-a.oregon-postgres.render.com;Port=5432;Username=pets;Password=8mPUBMxaTTBNRc4H9mGHc0EKSzSNIqy5;Database=pets_px49";
-        var db = new PostgresDb(connectionString);
+        var db = new ConnectBD(connectionString);
         db.TestConnection();
 
 
