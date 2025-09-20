@@ -1,42 +1,23 @@
-using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using Npgsql;
+using System.Linq;
 
-public class ConnectBD
+public class ApplicationDbContext : DbContext
 {
-    private readonly string _connectionString;
+    public DbSet<User> Stores { get; set; } 
 
-    public ConnectBD(string connectionString)
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        _connectionString = connectionString;
+        optionsBuilder.UseNpgsql("Host=dpg-d2oias7fte5s738b7nug-a.oregon-postgres.render.com;Port=5432;Username=pets;Password=8mPUBMxaTTBNRc4H9mGHc0EKSzSNIqy5;Database=pets_px49");
     }
 
-    public void TestConnection()
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        using var conn = new NpgsqlConnection(_connectionString);
-        try
-        {
-            conn.Open();
-            Console.WriteLine("Conexión exitosa a PostgreSQL");
-
-            using var cmd = new NpgsqlCommand("SELECT version()", conn);
-            var version = cmd.ExecuteScalar().ToString();
-            Console.WriteLine($"Versión de PostgreSQL: {version}");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error al conectar: {ex.Message}");
-        }
+        modelBuilder.Entity<User>().ToTable("stores"); 
     }
 
-    // Aquí agregamos el método ExecuteQuery
-    public NpgsqlDataReader ExecuteQuery(string query)
+    public async Task<List<User>> FindAll()
     {
-        var conn = new NpgsqlConnection(_connectionString);
-        conn.Open();
-
-        var cmd = new NpgsqlCommand(query, conn);
-        // Al usar CommandBehavior.CloseConnection, la conexión se cerrará al cerrar el reader
-        return cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+        return await Stores.ToListAsync();
     }
 }

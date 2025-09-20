@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Test.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace test.Controllers 
 {
@@ -7,33 +8,12 @@ namespace test.Controllers
     [Route("api/users")]
     public class UsersController  : ControllerBase 
     {
-            private readonly Service _db;
-
         [HttpGet]
-        public void  Get()
+        public async Task<List<User>> Get()
         {
-        Service servicio = new Service();
-        servicio.Hola();
-
-        Console.ReadLine();
-        }
-
-        [HttpPost()]
-        public IActionResult Create([FromBody] User data)
-        {
-            return Ok(new { message = "API funcionando" });
-        }
-
-        [HttpPatch("{id}")]
-        public IActionResult Update()
-        {
-            return Ok(new { message = "API funcionando" });
-        }
-
-        [HttpDelete("{id}")]
-        public IActionResult Remove()
-        {
-            return Ok(new { message = "API funcionando" });
+            Service servicio = new Service();
+            List<User> record = await servicio.Hola(); 
+            return record;
         }
     }
 }
