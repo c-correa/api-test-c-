@@ -1,5 +1,5 @@
-public class User
+public class Stores: IEntity
 {
-    public int Id { get; set; }    // clave primaria
+    public int Id { get; set; }   
     public string Name { get; set; }
 }
