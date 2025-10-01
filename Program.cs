@@ -1,8 +1,19 @@
+using ApiTest.Data;
+using ApiTest.Users;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();  // Make sure to add controllers support
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
+);
+
+
+builder.Services.AddScoped<ServiceUsers>();
 
 var app = builder.Build();
 
@@ -14,8 +25,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Map controller routes with required parameters:
 app.MapControllers();
-
 
 app.Run();

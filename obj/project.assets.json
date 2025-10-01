@@ -9542,7 +9542,7 @@
     "version": "1.0.0",
     "restore": {
       "projectUniqueName": "C:\\Users\\Cristian\\Documents\\GitHub\\api-test-c-\\test.csproj",
-      "projectName": "test",
+      "projectName": "ApiTest",
       "projectPath": "C:\\Users\\Cristian\\Documents\\GitHub\\api-test-c-\\test.csproj",
       "packagesPath": "C:\\Users\\Cristian\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Cristian\\Documents\\GitHub\\api-test-c-\\obj\\",
