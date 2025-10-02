@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using DotNetEnv;
-using ApiTest.Users;
+using ApiTest.Src.Users;
 
 namespace ApiTest.Data
 { 

@@ -1,5 +1,5 @@
 using ApiTest.Data;
-using ApiTest.Users;
+using ApiTest.Src.Users;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

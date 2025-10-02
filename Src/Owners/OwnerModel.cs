@@ -6,7 +6,7 @@ using ApiTest.Utils;
 namespace ApiTest.Src.Users
 {
     [Table("Users")]
-    public class User : IEntity
+    public class User : BaseEntity
     {
         [Required]
         [Column("name")]

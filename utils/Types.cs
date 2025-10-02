@@ -3,7 +3,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ApiTest.Utils
 {
-    public class IEntity
+
+    public interface IBaseEntity
+    {
+        int Id { get; set; }
+
+        DateTime CreatedAt { get; set; }
+
+        DateTime? UpdatedAt { get; set; } // Es mejor que sea nullable
+
+        DateTime? DeletedAt { get; set; }
+    }
+
+     public abstract class BaseEntity : IBaseEntity
     {
         [Key]
         [Column("id")]
@@ -11,22 +23,13 @@ namespace ApiTest.Utils
 
         [Required]
         [Column("created_at")]
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedAt { get; set; }
 
         [Column("update_at")]
-        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime? UpdatedAt { get; set; } // Es mejor que sea nullable
 
-        [Required]
         [Column("deleted_at")]
-        public DateTime? DeletedAt { get; set; } = null;
-    }
-
-    public interface IEntityError
-    {
-        string Name { get; set; }
-        string Message { get; set; }
-        string Stack { get; set; }
-        string Status { get; set; }
+        public DateTime? DeletedAt { get; set; }
     }
 
     public class ErrorResponse
@@ -40,5 +43,8 @@ namespace ApiTest.Utils
         public int Status { get; set; }
     }
 
-
+    public class OkResult
+    {
+        public bool Ok { get; set; }
+    }
 }
