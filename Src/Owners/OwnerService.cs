@@ -1,10 +1,11 @@
 
 using ApiTest.Data;
 using ApiTest.Services;
+using ApiTest.Src.Owners.Models;
 
-namespace ApiTest.Src.Users
+namespace ApiTest.Src.Owners.Service
 {
-    public class ServiceUsers(ApplicationDbContext context) : Service<User>(context)
+    public class ServicesOwner(ApplicationDbContext context) : Service<Owner>(context)
     {
     }
 }

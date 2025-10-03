@@ -1,8 +1,12 @@
 namespace ApiTest.Src.Users.Dto
 {
-    public class CreateUserDto
+    public class CreateOwnerDto
     {
+
         public string Name { get; set; } = string.Empty;
+
+
+        
         public string Password { get; set; } = string.Empty;
     }
 }

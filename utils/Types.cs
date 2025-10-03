@@ -15,7 +15,8 @@ namespace ApiTest.Utils
         DateTime? DeletedAt { get; set; }
     }
 
-     public abstract class BaseEntity : IBaseEntity
+  
+    public abstract class BaseEntity : IBaseEntity
     {
         [Key]
         [Column("id")]

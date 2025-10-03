@@ -1,12 +1,14 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
+using ApiTest.Src.OwnersPets.Models;
+using ApiTest.Src.Pets.Models;
 using ApiTest.Utils;
 
-namespace ApiTest.Src.Users
+namespace ApiTest.Src.Owners.Models
 {
-    [Table("Users")]
-    public class User : BaseEntity
+    [Table("owners")]
+    public class Owner : BaseEntity
     {
         [Required]
         [Column("name")]
@@ -19,5 +21,9 @@ namespace ApiTest.Src.Users
         [Required]
         [Column("password")]
         public required string Password { get; set; }
+
+        List<Pet> pets { get; set; } = [];
+
+        List<OwnersPet> OwnersPets { get; set; } = [];
     }
 }

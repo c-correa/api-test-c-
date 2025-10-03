@@ -1,6 +1,6 @@
 namespace ApiTest.Src.Users.Dto
 {
-    public class UpdateUserDto : CreateUserDto
+    public class UpdateOwnerDto : CreateOwnerDto
     {
         public int Id { get; set; }
     }

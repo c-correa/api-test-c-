@@ -1,17 +1,17 @@
 
-using ApiTest.Src.Owners.Models;
-using ApiTest.Src.Owners.Service;
+
+using ApiTest.Src.Pets.Models;
+using ApiTest.Src.Pets.Services;
 using ApiTest.Utils;
 using Microsoft.AspNetCore.Mvc;
 
-
-namespace ApiTest.Src.Owners.Controllers
+namespace ApiTest.Src.Pets.Controllers
 {
     [ApiController]
-    [Route("api/owners")]
-    public class OwnerController(ServicesOwner servicesOwner) : ControllerBase
+    [Route("api/pets")]
+    public class PetsController(ServicesPet servicesPet) : ControllerBase
     {
-        private readonly ServicesOwner _servicesOwner = servicesOwner;
+        private readonly ServicesPet _servicesOwner = servicesPet;
 
         [HttpGet]
         public IActionResult Get()
@@ -26,12 +26,12 @@ namespace ApiTest.Src.Owners.Controllers
             var result = SafeExecutor.Execute(() => _servicesOwner.GetById(id));
             return Ok(result);
         }
-        
+
         [HttpPost]
-        public IActionResult Create([FromBody] Owner data)
+        public IActionResult Create([FromBody] Pet data)
         {
-                var result = SafeExecutor.Execute(() => _servicesOwner.Add(data));
-                return Ok(result);
+            var result = SafeExecutor.Execute(() => _servicesOwner.Add(data));
+            return Ok(result);
         }
     }
 
