@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "go354KRV5tWTzeK3hH7ktM2/rWaFbNelJZG9ufaHDr/I6n07JTQ17582VWbB9aAnwDnu0MUQbqLWYRi0BOmaWQ==",
+  "dgSpecHash": "ZlAAbt0D67g=",
   "success": true,
   "projectFilePath": "/home/Coder/ccorrea/api-test-c-/test.csproj",
   "expectedPackageFiles": [
@@ -161,7 +161,10 @@
     "/home/Coder/.nuget/packages/system.threading.timer/4.3.0/system.threading.timer.4.3.0.nupkg.sha512",
     "/home/Coder/.nuget/packages/system.windows.extensions/6.0.0/system.windows.extensions.6.0.0.nupkg.sha512",
     "/home/Coder/.nuget/packages/system.xml.readerwriter/4.3.0/system.xml.readerwriter.4.3.0.nupkg.sha512",
-    "/home/Coder/.nuget/packages/system.xml.xdocument/4.3.0/system.xml.xdocument.4.3.0.nupkg.sha512"
+    "/home/Coder/.nuget/packages/system.xml.xdocument/4.3.0/system.xml.xdocument.4.3.0.nupkg.sha512",
+    "/home/Coder/.nuget/packages/microsoft.netcore.app.ref/8.0.20/microsoft.netcore.app.ref.8.0.20.nupkg.sha512",
+    "/home/Coder/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.20/microsoft.aspnetcore.app.ref.8.0.20.nupkg.sha512",
+    "/home/Coder/.nuget/packages/microsoft.netcore.app.host.linux-x64/8.0.20/microsoft.netcore.app.host.linux-x64.8.0.20.nupkg.sha512"
   ],
   "logs": []
 }
