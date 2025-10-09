@@ -1,32 +1,39 @@
 
 
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using ApiTest.Src.Owners.Models;
 using ApiTest.Src.OwnersPets.Models;
 using ApiTest.Utils;
 
-enum EGender
-{
-    FEMALE,
-    MALE
-}
 
-enum EType
+public enum ESex
 {
-    CANINO,
-    FELINO
+    Male,
+    Female,
+    Unknown
 }
 
 namespace ApiTest.Src.Pets.Models
 {
     public class Pet : BaseEntity
     {
-        string Name { get; set; }
+        [Required]
+        [Column("name")]
+        [NotNull]
+        public required string Name { get; set; }
 
-        EGender Gender { get; set; }
+        [Required]
+        [Column("bred")]
+        [NotNull]
+        public required string Breed { get; set; }
 
-        string Race { get; set; }
+        [Required]
+        [Column("sexo")]
+        [NotNull]
+        public required ESex Sexo { get; set; }
 
-        EType Type { get; set; }
 
         List<Owner> Owners { get; set; } = [];
 

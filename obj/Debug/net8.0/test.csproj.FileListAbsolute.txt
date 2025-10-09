@@ -517,6 +517,9 @@ C:/Users/Cristian/Documents/GitHub/api-test-c-/obj/Debug/net8.0/ref/ApiTest.dll
 /home/Coder/ccorrea/api-test-c-/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.ApiTest.props
 /home/Coder/ccorrea/api-test-c-/obj/Debug/net8.0/staticwebassets.pack.json
 /home/Coder/ccorrea/api-test-c-/obj/Debug/net8.0/scopedcss/bundle/ApiTest.styles.css
-/home/Coder/ccorrea/api-test-c-/obj/Debug/net8.0/test.csproj.CopyComplete
 /home/Coder/ccorrea/api-test-c-/obj/Debug/net8.0/test.genruntimeconfig.cache
 /home/Coder/ccorrea/api-test-c-/obj/Debug/net8.0/ref/ApiTest.dll
+/home/Coder/ccorrea/api-test-c-/bin/Debug/net8.0/ApiTest.staticwebassets.endpoints.json
+/home/Coder/ccorrea/api-test-c-/obj/Debug/net8.0/staticwebassets.build.endpoints.json
+/home/Coder/ccorrea/api-test-c-/obj/Debug/net8.0/staticwebassets/msbuild.ApiTest.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+/home/Coder/ccorrea/api-test-c-/obj/Debug/net8.0/test.csproj.Up2Date

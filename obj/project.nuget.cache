@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ZlAAbt0D67g=",
+  "dgSpecHash": "QOQBai5ytd4=",
   "success": true,
   "projectFilePath": "/home/Coder/ccorrea/api-test-c-/test.csproj",
   "expectedPackageFiles": [
@@ -162,8 +162,6 @@
     "/home/Coder/.nuget/packages/system.windows.extensions/6.0.0/system.windows.extensions.6.0.0.nupkg.sha512",
     "/home/Coder/.nuget/packages/system.xml.readerwriter/4.3.0/system.xml.readerwriter.4.3.0.nupkg.sha512",
     "/home/Coder/.nuget/packages/system.xml.xdocument/4.3.0/system.xml.xdocument.4.3.0.nupkg.sha512",
-    "/home/Coder/.nuget/packages/microsoft.netcore.app.ref/8.0.20/microsoft.netcore.app.ref.8.0.20.nupkg.sha512",
-    "/home/Coder/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.20/microsoft.aspnetcore.app.ref.8.0.20.nupkg.sha512",
     "/home/Coder/.nuget/packages/microsoft.netcore.app.host.linux-x64/8.0.20/microsoft.netcore.app.host.linux-x64.8.0.20.nupkg.sha512"
   ],
   "logs": []

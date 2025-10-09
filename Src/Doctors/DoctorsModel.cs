@@ -5,10 +5,10 @@ using ApiTest.Src.OwnersPets.Models;
 using ApiTest.Src.Pets.Models;
 using ApiTest.Utils;
 
-namespace ApiTest.Src.Owners.Models
+namespace ApiTest.Src.Doctors.Models
 {
-    [Table("owners")]
-    public class Owner : BaseEntity
+    [Table("doctors")]
+    public class Doctor : BaseEntity
     {
         [Required]
         [Column("first_name")]
@@ -37,8 +37,6 @@ namespace ApiTest.Src.Owners.Models
         [Column("password")]
         [NotNull]
         public required string Password { get; set; }
-
-        List<Pet> pets { get; set; } = [];
 
         List<OwnersPet> OwnersPets { get; set; } = [];
     }
