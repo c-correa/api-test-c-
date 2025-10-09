@@ -1,11 +1,11 @@
 
-using ApiTest.Src.Doctors.Models;
-using ApiTest.Src.Doctors.Service;
+
+
 using ApiTest.Utils;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace ApiTest.Src.Doctors.Controllers
+namespace ApiTest.Src.Doctors
 {
     [ApiController]
     [Route("api/doctors")]
@@ -28,7 +28,7 @@ namespace ApiTest.Src.Doctors.Controllers
         }
         
         [HttpPost]
-        public IActionResult Create([FromBody] Doctor data)
+        public IActionResult Create([FromBody] DoctorModel data)
         {
                 var result = SafeExecutor.Execute(() => _servicesDoctor.Add(data));
                 return Ok(result);

@@ -3,8 +3,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
-using ApiTest.Src.Owners.Models;
-using ApiTest.Src.OwnersPets.Models;
+using ApiTest.Src.HistoryRecords;
+using ApiTest.Src.OwnerPets;
+using ApiTest.Src.Owners;
 using ApiTest.Utils;
 
 
@@ -15,9 +16,9 @@ public enum ESex
     Unknown
 }
 
-namespace ApiTest.Src.Pets.Models
+namespace ApiTest.Src.Pets
 {
-    public class Pet : BaseEntity
+    public class PetModel : BaseEntity
     {
         [Required]
         [Column("name")]
@@ -34,10 +35,15 @@ namespace ApiTest.Src.Pets.Models
         [NotNull]
         public required ESex Sexo { get; set; }
 
+        ICollection<OwnerPetsModel> OwnersPets { get; set; } = new List<OwnerPetsModel>();
 
-        List<Owner> Owners { get; set; } = [];
 
-        List<OwnersPet> OwnersPets { get; set; } = [];
+        [Required]
+        [Column("history_record_id")]
+        [NotNull]
+        int HistoryRecordId { get; set; }  
+
+        HistoryRecordModel HistoryRecord { get; set; }
 
 
     }

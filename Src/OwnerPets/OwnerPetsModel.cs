@@ -3,13 +3,13 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
-using ApiTest.Src.Owners.Models;
-using ApiTest.Src.Pets.Models;
+using ApiTest.Src.Owners;
+using ApiTest.Src.Pets;
 using ApiTest.Utils;
 
-namespace ApiTest.Src.OwnersPets.Models
+namespace ApiTest.Src.OwnerPets
 {
-    public class OwnersPet : BaseEntity
+    public class OwnerPetsModel : BaseEntity
     {
 
         [Required]
@@ -22,9 +22,9 @@ namespace ApiTest.Src.OwnersPets.Models
         [NotNull]
         int OwnerId { get; set; }  
 
-        List<Pet> Pet { get; set; }
+        PetModel Pet { get; set; }
 
-        List<Owner> Owner { get; set; }
+        OwnerModel Owner { get; set; }
 
     }
 }

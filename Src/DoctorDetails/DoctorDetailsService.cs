@@ -1,11 +1,11 @@
 
 using ApiTest.Data;
 using ApiTest.Services;
-using ApiTest.Src.DoctorsDetails.Models;
+using ApiTest.Src.DoctorsDetails;
 
-namespace ApiTest.Src.DoctorsDetails.Service
+namespace ApiTest.Src.DoctorsDetails
 {
-    public class ServicesDoctorDetails(ApplicationDbContext context) : Service<DoctorDetails>(context)
+    public class ServicesDoctorDetails(ApplicationDbContext context) : Service<DoctorDetailsModel>(context)
     {
     }
 }

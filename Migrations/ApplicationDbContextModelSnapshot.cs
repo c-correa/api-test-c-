@@ -22,7 +22,7 @@ namespace ApiTest.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("ApiTest.Src.Owners.Models.Owner", b =>
+            modelBuilder.Entity("ApiTest.Src.Owners.Owner", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -62,7 +62,7 @@ namespace ApiTest.Migrations
                     b.ToTable("owners");
                 });
 
-            modelBuilder.Entity("ApiTest.Src.OwnersPets.Models.OwnersPet", b =>
+            modelBuilder.Entity("ApiTest.Src.OwnersPets.OwnerPetsModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -88,7 +88,7 @@ namespace ApiTest.Migrations
                     b.ToTable("OwnersPets");
                 });
 
-            modelBuilder.Entity("ApiTest.Src.Pets.Models.Pet", b =>
+            modelBuilder.Entity("ApiTest.Src.Pets.Pet", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

@@ -1,11 +1,11 @@
 
 
-using ApiTest.Src.OwnersPets.Models;
-using ApiTest.Src.OwnersPets.Services;
+using ApiTest.Src.OwnerPets;
+using ApiTest.Src.OwnersPets;
 using ApiTest.Utils;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ApiTest.Src.OwnersPets.Controllers
+namespace ApiTest.Src.OwnersPets
 {
     [ApiController]
     [Route("api/owner-pets")]
@@ -28,7 +28,7 @@ namespace ApiTest.Src.OwnersPets.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] OwnersPet data)
+        public IActionResult Create([FromBody] OwnerPetsModel data)
         {
             var result = SafeExecutor.Execute(() => _servicesOwnersPets.Add(data));
             return Ok(result);

@@ -1,12 +1,9 @@
 
-using ApiTest.Src.Doctors.Service;
-using ApiTest.Src.HistoryRecords.Models;
-using ApiTest.Src.HistoryRecords.Service;
 using ApiTest.Utils;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace ApiTest.Src.HistoryRecords.Controllers
+namespace ApiTest.Src.HistoryRecords
 {
     [ApiController]
     [Route("api/history_record")]
@@ -29,7 +26,7 @@ namespace ApiTest.Src.HistoryRecords.Controllers
         }
         
         [HttpPost]
-        public IActionResult Create([FromBody] HistoryRecord data)
+        public IActionResult Create([FromBody] HistoryRecordModel data)
         {
                 var result = SafeExecutor.Execute(() => _servicesHistoryRecord.Add(data));
                 return Ok(result);

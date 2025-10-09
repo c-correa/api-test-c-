@@ -1,13 +1,16 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using ApiTest.Src.OwnersPets.Models;
+using ApiTest.Src.Appointments;
+using ApiTest.Src.Pets;
 using ApiTest.Utils;
 
-namespace ApiTest.Src.HistoryRecords.Models
+namespace ApiTest.Src.HistoryRecords
 {
     [Table("history_record")]
-    public class HistoryRecord : BaseEntity
+    public class HistoryRecordModel : BaseEntity
     {
 
-        List<OwnersPet> OwnersPets { get; set; } = [];
+                public virtual AppointmentsModel AppointmentsModel { get; set; } = null!;
+
+
     }
 }

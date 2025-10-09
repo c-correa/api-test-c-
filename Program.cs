@@ -1,6 +1,6 @@
 using ApiTest.Data;
-using ApiTest.Src.Owners.Service;
-using ApiTest.Src.OwnersPets.Services;
+using ApiTest.Src.OwnerPets;
+using ApiTest.Src.Owners;
 using ApiTest.Src.Pets.Services;
 using Microsoft.EntityFrameworkCore;
 

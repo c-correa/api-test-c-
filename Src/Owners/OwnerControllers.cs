@@ -1,11 +1,9 @@
 
-using ApiTest.Src.Owners.Models;
-using ApiTest.Src.Owners.Service;
 using ApiTest.Utils;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace ApiTest.Src.Owners.Controllers
+namespace ApiTest.Src.Owners
 {
     [ApiController]
     [Route("api/owners")]
@@ -28,7 +26,7 @@ namespace ApiTest.Src.Owners.Controllers
         }
         
         [HttpPost]
-        public IActionResult Create([FromBody] Owner data)
+        public IActionResult Create([FromBody] OwnerModel data)
         {
                 var result = SafeExecutor.Execute(() => _servicesOwner.Add(data));
                 return Ok(result);

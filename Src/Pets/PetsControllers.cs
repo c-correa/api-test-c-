@@ -1,11 +1,10 @@
 
 
-using ApiTest.Src.Pets.Models;
 using ApiTest.Src.Pets.Services;
 using ApiTest.Utils;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ApiTest.Src.Pets.Controllers
+namespace ApiTest.Src.Pets
 {
     [ApiController]
     [Route("api/pets")]
@@ -28,7 +27,7 @@ namespace ApiTest.Src.Pets.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] Pet data)
+        public IActionResult Create([FromBody] PetModel data)
         {
             var result = SafeExecutor.Execute(() => _servicesOwner.Add(data));
             return Ok(result);

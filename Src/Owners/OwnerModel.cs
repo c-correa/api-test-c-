@@ -1,14 +1,14 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
-using ApiTest.Src.OwnersPets.Models;
-using ApiTest.Src.Pets.Models;
+using ApiTest.Src.OwnerPets;
+using ApiTest.Src.Pets;
 using ApiTest.Utils;
 
-namespace ApiTest.Src.Owners.Models
+namespace ApiTest.Src.Owners
 {
     [Table("owners")]
-    public class Owner : BaseEntity
+    public class OwnerModel : BaseEntity
     {
         [Required]
         [Column("first_name")]
@@ -38,8 +38,6 @@ namespace ApiTest.Src.Owners.Models
         [NotNull]
         public required string Password { get; set; }
 
-        List<Pet> pets { get; set; } = [];
-
-        List<OwnersPet> OwnersPets { get; set; } = [];
+        ICollection<OwnerPetsModel> OwnersPets { get; set; } = new List<OwnerPetsModel>();
     }
 }

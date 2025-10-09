@@ -1,13 +1,14 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
-using ApiTest.Src.OwnersPets.Models;
+using ApiTest.Src.Doctors;
+using ApiTest.Src.OwnerPets;
 using ApiTest.Utils;
 
-namespace ApiTest.Src.DoctorsDetails.Models
+namespace ApiTest.Src.DoctorsDetails
 {
     [Table("doctor_details")]
-    public class DoctorDetails : BaseEntity
+    public class DoctorDetailsModel : BaseEntity
     {
         [Required]
         [Column("doctor_id")]
@@ -29,9 +30,6 @@ namespace ApiTest.Src.DoctorsDetails.Models
         [NotNull]
         public required int YearsExperience { get; set; }
 
-        [Column("education")]
-        public required string Education { get; set; }
-
-        List<OwnersPet> OwnersPets { get; set; } = [];
+        DoctorModel Doctor { get; set; }
     }
 }

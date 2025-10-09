@@ -1,11 +1,10 @@
 
 using ApiTest.Data;
 using ApiTest.Services;
-using ApiTest.Src.HistoryRecords.Models;
 
-namespace ApiTest.Src.HistoryRecords.Service
+namespace ApiTest.Src.HistoryRecords
 {
-    public class ServicesHistoryRecord(ApplicationDbContext context) : Service<HistoryRecord>(context)
+    public class ServicesHistoryRecord(ApplicationDbContext context) : Service<HistoryRecordModel>(context)
     {
     }
 }

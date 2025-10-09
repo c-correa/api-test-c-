@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using DotNetEnv;
-using ApiTest.Src.Owners.Models;
-using ApiTest.Src.Pets.Models;
-using ApiTest.Src.OwnersPets.Models;
+using ApiTest.Src.Owners;
+using ApiTest.Src.Pets;
+using ApiTest.Src.OwnerPets;
 
 namespace ApiTest.Data
 {
@@ -25,9 +25,9 @@ namespace ApiTest.Data
             
         }
 
-        public DbSet<Owner> Owners { get; set; }
-        public DbSet<Pet> Pets { get; set; }
-        public DbSet<OwnersPet> OwnersPets { get; set; }
+        public DbSet<OwnerModel> Owners { get; set; }
+        public DbSet<PetModel> Pets { get; set; }
+        public DbSet<OwnerPetsModel> OwnersPets { get; set; }
 
 
     }

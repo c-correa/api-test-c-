@@ -1,10 +1,9 @@
 using ApiTest.Data;
 using ApiTest.Services;
-using ApiTest.Src.OwnersPets.Models;
 
-namespace ApiTest.Src.OwnersPets.Services
+namespace ApiTest.Src.OwnerPets
 {
-    public class ServicesOwnersPets(ApplicationDbContext context) : Service<OwnersPet>(context)
+    public class ServicesOwnersPets(ApplicationDbContext context) : Service<OwnerPetsModel>(context)
     {
     }
 }
