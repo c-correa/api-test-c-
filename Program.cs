@@ -1,4 +1,10 @@
 using ApiTest.Data;
+using ApiTest.Services;
+using ApiTest.Src.Appointments;
+using ApiTest.Src.AvailabilitySchedules;
+using ApiTest.Src.DoctorDetails;
+using ApiTest.Src.Doctors;
+using ApiTest.Src.HistoryRecords;
 using ApiTest.Src.OwnerPets;
 using ApiTest.Src.Owners;
 using ApiTest.Src.Pets.Services;
@@ -18,6 +24,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<ServicesOwner>();
 builder.Services.AddScoped<ServicesPet>();
 builder.Services.AddScoped<ServicesOwnersPets>();
+builder.Services.AddScoped<ServicesHistoryRecord>();
+builder.Services.AddScoped<ServicesDoctor>();
+builder.Services.AddScoped<ServicesDoctorDetails>();
+builder.Services.AddScoped<ServicesAvailabilitySchedule>();
+builder.Services.AddScoped<ServicesAppointments>();
 
 var app = builder.Build();
 
