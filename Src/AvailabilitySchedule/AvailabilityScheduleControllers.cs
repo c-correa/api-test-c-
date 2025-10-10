@@ -5,34 +5,13 @@ using ApiTest.Utils;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace ApiTest.Src.Doctors
+namespace ApiTest.Src.AvailabilitySchedule
 {
-    [ApiController]
-    [Route("api/AvailabilitySchedule")]
-    public class AvailabilityScheduleController(ServicesAvailabilitySchedule servicesAvailabilitySchedule) : ControllerBase
+    [Route("api/availability-schedule")]
+    public class AvailabilityScheduleController(ServicesAvailabilitySchedule servicesAvailabilitySchedule) : BaseController<AvailabilityScheduleModel>(servicesAvailabilitySchedule)
     {
         private readonly ServicesAvailabilitySchedule _servicesAvailabilitySchedule = servicesAvailabilitySchedule;
 
-        [HttpGet]
-        public IActionResult Get()
-        {
-            var result = SafeExecutor.Execute(() => _servicesAvailabilitySchedule.GetAll());
-            return Ok(result);
-        }
-
-        [HttpGet("{id}")]
-        public IActionResult GetOne(int id)
-        {
-            var result = SafeExecutor.Execute(() => _servicesAvailabilitySchedule.GetById(id));
-            return Ok(result);
-        }
-        
-        [HttpPost]
-        public IActionResult Create([FromBody] AvailabilityScheduleModel data)
-        {
-                var result = SafeExecutor.Execute(() => _servicesAvailabilitySchedule.Add(data));
-                return Ok(result);
-        }
     }
 
 }
