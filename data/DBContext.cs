@@ -17,7 +17,6 @@ namespace ApiTest.Data
             : base(options)
         {
         }
-        public ApplicationDbContext() { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -25,9 +24,30 @@ namespace ApiTest.Data
             {
                 Env.Load();
                 var connectionString = Environment.GetEnvironmentVariable("URL_CONNECT_BD");
+
+                if (string.IsNullOrEmpty(connectionString))
+                    throw new InvalidOperationException("La variable de entorno 'URL_CONNECT_BD' no está configurada.");
+
                 optionsBuilder.UseNpgsql(connectionString);
             }
-            
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<OwnerPetsModel>()
+                .HasKey(op => new { op.OwnerId, op.PetId }); // clave compuesta
+
+            modelBuilder.Entity<OwnerPetsModel>()
+                .HasOne(op => op.Owner)
+                .WithMany(o => o.OwnerPets)
+                .HasForeignKey(op => op.OwnerId);
+
+            modelBuilder.Entity<OwnerPetsModel>()
+                .HasOne(op => op.Pet)
+                .WithMany(p => p.OwnerPets)
+                .HasForeignKey(op => op.PetId);
         }
 
         public DbSet<OwnerModel> Owners { get; set; }
@@ -38,7 +58,5 @@ namespace ApiTest.Data
         public DbSet<DoctorModel> Doctors { get; set; }
         public DbSet<DoctorDetailsModel> DoctorDetails { get; set; }
         public DbSet<HistoryRecordModel> HistoryRecords { get; set; }
-
-
     }
 }

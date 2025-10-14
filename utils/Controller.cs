@@ -2,53 +2,49 @@ using Microsoft.AspNetCore.Mvc;
 using ApiTest.Services;
 using ApiTest.Utils;
 
-namespace ApiTest.Utils.Controllers
+namespace ApiTest.Utils
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class BaseController<T> : ControllerBase where T : class, IBaseEntity
+    public class BaseController<T>(Service<T> service) : ControllerBase where T : class, IBaseEntity
     {
-        private readonly service<T> _service;
-
-        public BaseController(Service<T> service)
-        {
-            _service = service;
-        }
+        protected readonly Service<T> _service = service;
 
         [HttpGet]
-        public IActionResult Get()
+        public virtual IActionResult GetAll()
         {
             var result = SafeExecutor.Execute(() => _service.GetAll());
             return Ok(result);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetOne(int id)
+        public virtual IActionResult GetById(int id)
         {
             var result = SafeExecutor.Execute(() => _service.GetById(id));
             return Ok(result);
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] T data)
+        public virtual IActionResult Create([FromBody] T entity)
         {
-            var result = SafeExecutor.Execute(() => _service.Add(data));
+            var result = SafeExecutor.Execute(() => _service.Add(entity));
             return Ok(result);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] T data)
+        public virtual IActionResult Update(int id, [FromBody] T entity)
         {
             SafeExecutor.Execute(() =>
             {
-                _service.Update(data);
+                _service.Update(entity);
                 return true;
             });
+
             return Ok(new { Message = "Record updated successfully" });
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public virtual IActionResult Delete(int id)
         {
             SafeExecutor.Execute(() =>
             {
@@ -59,6 +55,7 @@ namespace ApiTest.Utils.Controllers
                 _service.Delete(entity);
                 return true;
             });
+
             return Ok(new { Message = "Record deleted successfully" });
         }
     }

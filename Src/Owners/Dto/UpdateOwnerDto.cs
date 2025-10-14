@@ -1,7 +1,12 @@
-namespace ApiTest.Src.Users.Dto
-{
-    public class UpdateOwnerDto : CreateOwnerDto
-    {
-        public int Id { get; set; }
-    }
-}
+
+
+namespace ApiTest.Src.Owners.Dto;
+public record OwnerWithPetsViewModelDto(
+    int Id,
+    List<PetViewModelDto> Pets
+);
+
+public record PetViewModelDto(
+    int Id,
+    string Name
+);

@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
-using ApiTest.Src.DoctorsDetails;
+using ApiTest.Src.DoctorDetails;
 using ApiTest.Utils;
 
 namespace ApiTest.Src.Doctors
@@ -37,6 +37,5 @@ namespace ApiTest.Src.Doctors
         [NotNull]
         public required string Password { get; set; }
 
-        DoctorDetailsModel DoctorDetails { get; set; }
     }
 }

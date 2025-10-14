@@ -3,6 +3,7 @@ using System;
 using ApiTest.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ApiTest.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251011162619_AddOwnersPetsTable")]
+    partial class AddOwnersPetsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -268,13 +271,12 @@ namespace ApiTest.Migrations
 
             modelBuilder.Entity("ApiTest.Src.OwnerPets.OwnerPetsModel", b =>
                 {
-                    b.Property<int>("OwnerId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("owner_id");
+                        .HasColumnName("id");
 
-                    b.Property<int>("PetId")
-                        .HasColumnType("integer")
-                        .HasColumnName("pet_id");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
@@ -284,15 +286,21 @@ namespace ApiTest.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("deleted_at");
 
-                    b.Property<int>("Id")
+                    b.Property<int>("OwnerId")
                         .HasColumnType("integer")
-                        .HasColumnName("id");
+                        .HasColumnName("owner_id");
+
+                    b.Property<int>("PetId")
+                        .HasColumnType("integer")
+                        .HasColumnName("pet_id");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("update_at");
 
-                    b.HasKey("OwnerId", "PetId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
 
                     b.HasIndex("PetId");
 
@@ -366,7 +374,7 @@ namespace ApiTest.Migrations
                     b.Property<string>("Breed")
                         .IsRequired()
                         .HasColumnType("text")
-                        .HasColumnName("breed");
+                        .HasColumnName("bred");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
@@ -383,7 +391,7 @@ namespace ApiTest.Migrations
 
                     b.Property<int>("Sexo")
                         .HasColumnType("integer")
-                        .HasColumnName("sex");
+                        .HasColumnName("sexo");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone")
@@ -391,7 +399,7 @@ namespace ApiTest.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("pets");
+                    b.ToTable("Pets");
                 });
 
             modelBuilder.Entity("ApiTest.Src.Appointments.AppointmentsModel", b =>
@@ -427,13 +435,13 @@ namespace ApiTest.Migrations
             modelBuilder.Entity("ApiTest.Src.OwnerPets.OwnerPetsModel", b =>
                 {
                     b.HasOne("ApiTest.Src.Owners.OwnerModel", "Owner")
-                        .WithMany("OwnerPets")
+                        .WithMany()
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ApiTest.Src.Pets.PetModel", "Pet")
-                        .WithMany("OwnerPets")
+                        .WithMany()
                         .HasForeignKey("PetId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -446,16 +454,6 @@ namespace ApiTest.Migrations
             modelBuilder.Entity("ApiTest.Src.Appointments.AppointmentsModel", b =>
                 {
                     b.Navigation("HistoryRecords");
-                });
-
-            modelBuilder.Entity("ApiTest.Src.Owners.OwnerModel", b =>
-                {
-                    b.Navigation("OwnerPets");
-                });
-
-            modelBuilder.Entity("ApiTest.Src.Pets.PetModel", b =>
-                {
-                    b.Navigation("OwnerPets");
                 });
 #pragma warning restore 612, 618
         }

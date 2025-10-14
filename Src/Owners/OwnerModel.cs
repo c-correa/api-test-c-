@@ -10,34 +10,25 @@ namespace ApiTest.Src.Owners
     [Table("owners")]
     public class OwnerModel : BaseEntity
     {
-        [Required]
-        [Column("first_name")]
-        [NotNull]
+        [Required, Column("first_name"), NotNull]
         public required string FirstName { get; set; }
 
-        [Required]
-        [Column("last_name")]
-        [NotNull]
+        [Required, Column("last_name"), NotNull]
         public required string LastName { get; set; }
 
-        [Required]
-        [Column("phone")]
-        [NotNull]
+        [Required, Column("phone"), NotNull]
         public required string Phone { get; set; }
 
-        [Required]
-        [Column("email")]
-        [NotNull]
+        [Required, Column("email"), NotNull]
         public required string Email { get; set; }
 
         [Column("is_active")]
         public bool IsActive { get; set; } = false;
 
-        [Required]
-        [Column("password")]
-        [NotNull]
+        [Required, Column("password"), NotNull]
         public required string Password { get; set; }
 
-        ICollection<OwnerPetsModel> OwnersPets { get; set; } = new List<OwnerPetsModel>();
+        // Relación muchos a muchos (vía tabla intermedia)
+        public ICollection<OwnerPetsModel> OwnerPets { get; set; } = new List<OwnerPetsModel>();
     }
 }

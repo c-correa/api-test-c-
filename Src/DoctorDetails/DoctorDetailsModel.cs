@@ -2,10 +2,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using ApiTest.Src.Doctors;
-using ApiTest.Src.OwnerPets;
 using ApiTest.Utils;
 
-namespace ApiTest.Src.DoctorsDetails
+namespace ApiTest.Src.DoctorDetails
 {
     [Table("doctor_details")]
     public class DoctorDetailsModel : BaseEntity
@@ -30,6 +29,5 @@ namespace ApiTest.Src.DoctorsDetails
         [NotNull]
         public required int YearsExperience { get; set; }
 
-        DoctorModel Doctor { get; set; }
     }
 }

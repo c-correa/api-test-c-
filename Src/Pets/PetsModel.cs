@@ -18,33 +18,19 @@ public enum ESex
 
 namespace ApiTest.Src.Pets
 {
+    [Table("pets")]
     public class PetModel : BaseEntity
     {
-        [Required]
-        [Column("name")]
-        [NotNull]
+        [Required, Column("name"), NotNull]
         public required string Name { get; set; }
 
-        [Required]
-        [Column("bred")]
-        [NotNull]
+        [Required, Column("breed"), NotNull]  // <-- "breed" (no "bred")
         public required string Breed { get; set; }
 
-        [Required]
-        [Column("sexo")]
-        [NotNull]
+        [Required, Column("sex"), NotNull]
         public required ESex Sexo { get; set; }
 
-        ICollection<OwnerPetsModel> OwnersPets { get; set; } = new List<OwnerPetsModel>();
-
-
-        [Required]
-        [Column("history_record_id")]
-        [NotNull]
-        int HistoryRecordId { get; set; }  
-
-        HistoryRecordModel HistoryRecord { get; set; }
-
-
+        // Relación muchos a muchos (vía tabla intermedia)
+        public ICollection<OwnerPetsModel> OwnerPets { get; set; } = new List<OwnerPetsModel>();
     }
 }

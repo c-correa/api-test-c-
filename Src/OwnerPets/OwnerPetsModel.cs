@@ -1,5 +1,3 @@
-
-
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
@@ -9,22 +7,19 @@ using ApiTest.Utils;
 
 namespace ApiTest.Src.OwnerPets
 {
+    [Table("owners_pets")]
     public class OwnerPetsModel : BaseEntity
     {
+        [Required, Column("owner_id"), NotNull]
+        public int OwnerId { get; set; }
 
-        [Required]
-        [Column("pet_id")]
-        [NotNull]
-        int PetId { get; set; }
-        
-        [Required]
-        [Column("owner_id")]
-        [NotNull]
-        int OwnerId { get; set; }  
+        [Required, Column("pet_id"), NotNull]
+        public int PetId { get; set; }
 
-        PetModel Pet { get; set; }
+        [ForeignKey(nameof(OwnerId))]
+        public OwnerModel Owner { get; set; } = null!;
 
-        OwnerModel Owner { get; set; }
-
+        [ForeignKey(nameof(PetId))]
+        public PetModel Pet { get; set; } = null!;
     }
 }

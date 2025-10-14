@@ -1,37 +1,93 @@
-
-
+using ApiTest.Data;
+using ApiTest.Src.OwnerPets;
+using ApiTest.Src.OwnerPets.Dto;
+using ApiTest.Src.Owners;
 using ApiTest.Src.Pets.Services;
 using ApiTest.Utils;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiTest.Src.Pets
 {
-    [ApiController]
     [Route("api/pets")]
-    public class PetsController(ServicesPet servicesPet) : ControllerBase
+    [ApiController]
+    public class PetsController : BaseController<PetModel>
     {
-        private readonly ServicesPet _servicesOwner = servicesPet;
+        private readonly ServicesPet _servicesPet;
+        private readonly ServicesOwner _servicesOwner;
+        private readonly ServicesOwnersPets _servicesOwnerPets;
+        private readonly ApplicationDbContext _context;
 
-        [HttpGet]
-        public IActionResult Get()
+        public PetsController(
+            ServicesPet servicesPet,
+            ServicesOwner servicesOwner,
+            ServicesOwnersPets servicesOwnerPets,
+            ApplicationDbContext context
+        ) : base(servicesPet)
         {
-            var result = SafeExecutor.Execute(() => _servicesOwner.GetAll());
-            return Ok(result);
+            _servicesPet = servicesPet;
+            _servicesOwner = servicesOwner;
+            _servicesOwnerPets = servicesOwnerPets;
+            _context = context;
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetOne(int id)
+        [HttpPost("create-with-owner")]
+        public IActionResult CreatePetWithOwner([FromBody] CreatePetWithOwnerDto dto)
         {
-            var result = SafeExecutor.Execute(() => _servicesOwner.GetById(id));
-            return Ok(result);
-        }
+            using var transaction = _context.Database.BeginTransaction();
 
-        [HttpPost]
-        public IActionResult Create([FromBody] PetModel data)
-        {
-            var result = SafeExecutor.Execute(() => _servicesOwner.Add(data));
-            return Ok(result);
+            try
+            {
+                // 1️⃣ Crear el dueño
+                var owner = new OwnerModel
+                {
+                    FirstName = dto.Owner.FirstName,
+                    LastName = dto.Owner.LastName,
+                    Phone = dto.Owner.Phone,
+                    Email = dto.Owner.Email,
+                    Password = dto.Owner.Password,
+                    IsActive = true
+                };
+
+                _servicesOwner.Add(owner);
+
+                // 2️⃣ Crear la mascota
+                var pet = new PetModel
+                {
+                    Name = dto.Pet.Name,
+                    Breed = dto.Pet.Breed,
+                    Sexo = dto.Pet.Sexo
+                };
+
+                _servicesPet.Add(pet);
+
+                // 3️⃣ Relacionar dueño ↔ mascota
+                var ownerPet = new OwnerPetsModel
+                {
+                    OwnerId = owner.Id,
+                    PetId = pet.Id
+                };
+
+                _servicesOwnerPets.Add(ownerPet);
+
+                transaction.Commit();
+
+                return Ok(new
+                {
+                    message = "Mascota y dueño creados correctamente",
+                    owner,
+                    pet
+                });
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                return StatusCode(500, new
+                {
+                    message = "Error al crear mascota y dueño",
+                    error = ex.Message
+                });
+            }
         }
     }
-
 }

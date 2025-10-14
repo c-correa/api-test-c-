@@ -5,32 +5,23 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ApiTest.Src.Owners
 {
-    [ApiController]
     [Route("api/owners")]
-    public class OwnerController(ServicesOwner servicesOwner) : ControllerBase
+    public class OwnerController(ServicesOwner servicesOwner) : BaseController<OwnerModel>(servicesOwner)
     {
         private readonly ServicesOwner _servicesOwner = servicesOwner;
 
-        [HttpGet]
-        public IActionResult Get()
-        {
-            var result = SafeExecutor.Execute(() => _servicesOwner.GetAll());
-            return Ok(result);
-        }
+[HttpGet("{id}/pets")]
+public async Task<IActionResult> GetOwnerWithPets(int id)
+{
+    var owner = await _servicesOwner.GetOwnerWithJoinAsync(id); // ✅ ahora sí espera la tarea
 
-        [HttpGet("{id}")]
-        public IActionResult GetOne(int id)
-        {
-            var result = SafeExecutor.Execute(() => _servicesOwner.GetById(id));
-            return Ok(result);
-        }
-        
-        [HttpPost]
-        public IActionResult Create([FromBody] OwnerModel data)
-        {
-                var result = SafeExecutor.Execute(() => _servicesOwner.Add(data));
-                return Ok(result);
-        }
-    }
+    if (owner == null)
+        return NotFound(new { message = "Owner not found" });
+
+    return Ok(owner);
+}
+
+
+            }
 
 }
