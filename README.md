@@ -1,10 +1,10 @@
 # API-TEST-C
 
-API-TEST-C es un proyecto backend modular en **.NET**, diseñado para facilitar la escalabilidad, mantenimiento y organización por módulos funcionales (como citas y usuarios).  
+API-TEST-C is a modular backend project in **.NET**, designed to facilitate scalability, maintainability, and organization through functional modules (such as appointments and users).  
 
 ---
 
-## 📂 Estructura del proyecto
+## 📂 Project Structure
 
 API-TEST-C/
 ├─ .vscode/ # Configuración del editor Visual Studio Code
@@ -41,49 +41,43 @@ API-TEST-C/
 ├─ test.http # Requests para probar la API
 └─ test.sln # Solución de Visual Studio
 
-
+---
 
 
 ---
 
-## ⚙️ Requisitos
+## ⚙️ Requirements
 
-- [.NET 6 o 7 SDK](https://dotnet.microsoft.com/download)
-- SQL Server / PostgreSQL según configuración
-- Visual Studio Code o Visual Studio
-- (Opcional) Postman o VS Code REST Client para probar endpoints
+- [.NET 6 or 7 SDK](https://dotnet.microsoft.com/download)
+- SQL Server / PostgreSQL (depending on your configuration)
+- Visual Studio Code or Visual Studio
+- (Optional) Postman or VS Code REST Client to test endpoints
 
 ---
 
-## 🚀 Cómo iniciar el proyecto
+## 🚀 How to run the project
 
 ```bash
-# Clonar el repositorio
-git clone <URL_DEL_REPOSITORIO>
+# Clone the repository
+git clone <REPOSITORY_URL>
 cd API-TEST-C
 
-# Configurar variables de entorno en el archivo .env
-# Por ejemplo:
+# Set up environment variables in the .env file
+# For example:
 # DB_CONNECTION=Server=localhost;Database=ApiTest;User Id=sa;Password=your_password;
 # PORT=5000
 
-# Restaurar dependencias
+# Restore dependencies
 dotnet restore
 
-# Construir el proyecto
+# Build the project
 dotnet build
 
-# Ejecutar la aplicación
+# Run the application
 dotnet run --project Src
 
+# Create a new migration
+dotnet ef migrations add MigrationName --project Src --startup-project Src
 
-# Crear una nueva migración
-dotnet ef migrations add NombreDeLaMigracion --project Src --startup-project Src
-
-# Aplicar migraciones pendientes
+# Apply pending migrations
 dotnet ef database update --project Src --startup-project Src
-
-
-La API estará disponible en http://localhost:5163 según tu configuración.
-La documentación Swagger se puede consultar en:
-http://localhost:5163/SWAGGER/index.html
