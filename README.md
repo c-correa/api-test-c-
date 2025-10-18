@@ -59,7 +59,7 @@ API-TEST-C/
 
 ```bash
 # Clone the repository
-git clone <REPOSITORY_URL>
+git clone https://github.com/c-correa/api-test-c-
 cd API-TEST-C
 
 # Set up environment variables in the .env file
