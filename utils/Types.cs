@@ -24,14 +24,15 @@ namespace ApiTest.Utils
 
         [Required]
         [Column("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow; // valor por defecto
 
         [Column("update_at")]
-        public DateTime? UpdatedAt { get; set; } // Es mejor que sea nullable
+        public DateTime? UpdatedAt { get; set; } = DateTime.UtcNow;
 
         [Column("deleted_at")]
-        public DateTime? DeletedAt { get; set; }
+        public DateTime? DeletedAt { get; set; } = null;
     }
+
 
     public class ErrorResponse
     {

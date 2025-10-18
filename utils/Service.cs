@@ -1,54 +1,58 @@
-using System.Diagnostics.Eventing.Reader;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using ApiTest.Data;
 using ApiTest.Utils;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.EntityFrameworkCore;
 
-namespace ApiTest.Services
+public class Service<T, C, U> where T : class, IBaseEntity where U : class?
 {
-    public class Service<T> where T : class, IBaseEntity
+    private readonly ApplicationDbContext _context;
+    private readonly IMapper _mapper;
+    private readonly DbSet<T> _entities;
+
+    public Service(ApplicationDbContext context, IMapper mapper)
     {
-        private readonly ApplicationDbContext _context;
-        private readonly DbSet<T> _entities;
-
-        public Service(ApplicationDbContext context)
-        {
-            _context = context;
-            _entities = _context.Set<T>();
-        }
-
-        public IEnumerable<T> GetAll()
-        {
-            return _entities.ToList();
-        }
-
-        public T? GetById(int id)
-        {
-            T? record = _entities.FirstOrDefault(x => x.Id == id);
-            if (record == null)
-            {
-                throw new ArgumentException("No hat data");
-            }
-            return record;
-        }
-
-        public OkResult Add(T entity)
-        {
-            _entities.Add(entity);
-            _context.SaveChanges();
-            return new OkResult {Ok = true};
-        }
-
-        public void Update(T entity)
-        {
-            _entities.Update(entity);
-            _context.SaveChanges();
-        }
-
-        public void Delete(T entity)
-        {
-            _entities.Remove(entity);
-            _context.SaveChanges();
-        }
+        _context = context;
+        _mapper = mapper;
+        _entities = _context.Set<T>();
     }
+
+    public IEnumerable<T> GetAll()
+    {
+        return _entities.ToList();
+    }
+
+    public T? GetById(int id)
+    {
+        T? record = _entities.FirstOrDefault(x => x.Id == id);
+        if (record == null)
+            throw new ArgumentException("No hay data");
+        return record;
+    }
+
+    public OkResult Add(C dto)
+    {
+        // Mapeo automático DTO → Entidad
+        T entity = _mapper.Map<T>(dto);
+        _entities.Add(entity);
+        _context.SaveChanges();
+        return new OkResult { Ok = true };
+    }
+
+  public void Update(int id, U? dto)
+    {
+        if (dto == null)
+            throw new ArgumentException("DTO no puede ser null");
+
+        T entity = _entities.FirstOrDefault(x => x.Id == id)
+                ?? throw new ArgumentException("No hay data");
+
+        // Mapea propiedades del DTO sobre la entidad existente
+        _mapper.Map(dto, entity);
+
+        // 🔹 Forzar EF Core a marcar la entidad como modificada
+        _context.Entry(entity).State = EntityState.Modified;
+
+        _context.SaveChanges();
+    }
+
 }

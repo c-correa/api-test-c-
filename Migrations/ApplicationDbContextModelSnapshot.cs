@@ -22,63 +22,73 @@ namespace ApiTest.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("ApiTest.Src.Appointments.AppointmentsModel", b =>
+            modelBuilder.Entity("ApiTest.Src.Appointment.AppointmentModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("AppointmentDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("appointment_date");
-
-                    b.Property<TimeSpan>("AppointmentTime")
-                        .HasColumnType("interval")
-                        .HasColumnName("appointment_time");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("date");
+
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("deleted_at");
 
-                    b.Property<int>("DoctorId")
-                        .HasColumnType("integer")
-                        .HasColumnName("doctor_id");
+                    b.Property<TimeSpan>("EndTime")
+                        .HasColumnType("interval")
+                        .HasColumnName("end_time");
 
-                    b.Property<int>("HistoryRecordId")
+                    b.Property<int>("IdInspectionType")
                         .HasColumnType("integer")
-                        .HasColumnName("history_record_id");
+                        .HasColumnName("id_inspection_type");
+
+                    b.Property<int>("IdInspector")
+                        .HasColumnType("integer")
+                        .HasColumnName("id_inspector");
+
+                    b.Property<int>("IdVehicle")
+                        .HasColumnType("integer")
+                        .HasColumnName("id_vehicle");
 
                     b.Property<string>("Notes")
                         .HasColumnType("text")
                         .HasColumnName("notes");
 
-                    b.Property<int>("PatientId")
-                        .HasColumnType("integer")
-                        .HasColumnName("pet_id");
+                    b.Property<TimeSpan>("StartTime")
+                        .HasColumnType("interval")
+                        .HasColumnName("start_time");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("status");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("update_at");
 
-                    b.Property<int>("VeterinarianId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("PatientId");
+                    b.HasIndex("IdInspectionType");
 
-                    b.HasIndex("VeterinarianId");
+                    b.HasIndex("IdInspector");
+
+                    b.HasIndex("IdVehicle");
 
                     b.ToTable("appointments");
                 });
 
-            modelBuilder.Entity("ApiTest.Src.AvailabilitySchedule.AvailabilityScheduleModel", b =>
+            modelBuilder.Entity("ApiTest.Src.Customer.CustomerModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -86,6 +96,11 @@ namespace ApiTest.Migrations
                         .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)")
+                        .HasColumnName("address");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
@@ -95,295 +110,38 @@ namespace ApiTest.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("deleted_at");
 
-                    b.Property<bool>("Friday")
-                        .HasColumnType("boolean")
-                        .HasColumnName("friday");
-
-                    b.Property<TimeSpan>("Hour")
-                        .HasColumnType("interval")
-                        .HasColumnName("hour");
-
-                    b.Property<bool>("Monday")
-                        .HasColumnType("boolean")
-                        .HasColumnName("monday");
-
-                    b.Property<bool>("Saturday")
-                        .HasColumnType("boolean")
-                        .HasColumnName("saturday");
-
-                    b.Property<bool>("Sunday")
-                        .HasColumnType("boolean")
-                        .HasColumnName("sunday");
-
-                    b.Property<bool>("Thursday")
-                        .HasColumnType("boolean")
-                        .HasColumnName("thursday");
-
-                    b.Property<bool>("Tuesday")
-                        .HasColumnType("boolean")
-                        .HasColumnName("tuesday");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("update_at");
-
-                    b.Property<bool>("Wednesday")
-                        .HasColumnType("boolean")
-                        .HasColumnName("wednesday");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("availability_schedule");
-                });
-
-            modelBuilder.Entity("ApiTest.Src.DoctorDetails.DoctorDetailsModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("deleted_at");
-
-                    b.Property<int>("DoctorId")
-                        .HasColumnType("integer")
-                        .HasColumnName("doctor_id");
-
-                    b.Property<string>("LicenseNumber")
+                    b.Property<string>("DocumentNumber")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("license_number");
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)")
+                        .HasColumnName("document_number");
 
-                    b.Property<string>("Specialty")
+                    b.Property<string>("DocumentType")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("specialty");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("update_at");
-
-                    b.Property<int>("YearsExperience")
-                        .HasColumnType("integer")
-                        .HasColumnName("years_experience");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("doctor_details");
-                });
-
-            modelBuilder.Entity("ApiTest.Src.Doctors.DoctorModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("deleted_at");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("document_type");
 
                     b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
                         .HasColumnName("email");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("first_name");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean")
-                        .HasColumnName("is_active");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("last_name");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("password");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("phone");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("update_at");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("doctors");
-                });
-
-            modelBuilder.Entity("ApiTest.Src.HistoryRecords.HistoryRecordModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AppointmentsModelId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("deleted_at");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("update_at");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppointmentsModelId");
-
-                    b.ToTable("history_record");
-                });
-
-            modelBuilder.Entity("ApiTest.Src.OwnerPets.OwnerPetsModel", b =>
-                {
-                    b.Property<int>("OwnerId")
-                        .HasColumnType("integer")
-                        .HasColumnName("owner_id");
-
-                    b.Property<int>("PetId")
-                        .HasColumnType("integer")
-                        .HasColumnName("pet_id");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("deleted_at");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("update_at");
-
-                    b.HasKey("OwnerId", "PetId");
-
-                    b.HasIndex("PetId");
-
-                    b.ToTable("owners_pets");
-                });
-
-            modelBuilder.Entity("ApiTest.Src.Owners.OwnerModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("deleted_at");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("email");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("first_name");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean")
-                        .HasColumnName("is_active");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("last_name");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("password");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("phone");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("update_at");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("owners");
-                });
-
-            modelBuilder.Entity("ApiTest.Src.Pets.PetModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Breed")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("breed");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("deleted_at");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
                         .HasColumnName("name");
 
-                    b.Property<int>("Sexo")
-                        .HasColumnType("integer")
-                        .HasColumnName("sex");
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("phone");
+
+                    b.Property<DateTime>("RegistrationDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("registration_date");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone")
@@ -391,71 +149,282 @@ namespace ApiTest.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("pets");
+                    b.ToTable("customers");
                 });
 
-            modelBuilder.Entity("ApiTest.Src.Appointments.AppointmentsModel", b =>
+            modelBuilder.Entity("ApiTest.Src.InspectionType.InspectionTypeModel", b =>
                 {
-                    b.HasOne("ApiTest.Src.Pets.PetModel", "Pet")
-                        .WithMany()
-                        .HasForeignKey("PatientId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("deleted_at");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("description");
+
+                    b.Property<int>("EstimatedDurationMinutes")
+                        .HasColumnType("integer")
+                        .HasColumnName("estimated_duration_minutes");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("name");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("update_at");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("inspection_types");
+                });
+
+            modelBuilder.Entity("ApiTest.Src.Inspector.InspectorModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("deleted_at");
+
+                    b.Property<string>("DocumentNumber")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)")
+                        .HasColumnName("document_number");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("email");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("name");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("phone");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("character varying(15)")
+                        .HasColumnName("status");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("update_at");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("inspectors");
+                });
+
+            modelBuilder.Entity("ApiTest.Src.InspectorInspectionType.InspectorInspectionTypeModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("deleted_at");
+
+                    b.Property<int>("IdInspectionType")
+                        .HasColumnType("integer")
+                        .HasColumnName("id_inspection_type");
+
+                    b.Property<int>("IdInspector")
+                        .HasColumnType("integer")
+                        .HasColumnName("id_inspector");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("update_at");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdInspectionType");
+
+                    b.HasIndex("IdInspector");
+
+                    b.ToTable("inspector_inspection_types");
+                });
+
+            modelBuilder.Entity("ApiTest.Src.Vehicle.VehicleModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Brand")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("brand");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("deleted_at");
+
+                    b.Property<int>("IdCustomer")
+                        .HasColumnType("integer")
+                        .HasColumnName("id_customer");
+
+                    b.Property<string>("LicensePlate")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)")
+                        .HasColumnName("license_plate");
+
+                    b.Property<string>("Model")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("model");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("update_at");
+
+                    b.Property<string>("VehicleType")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)")
+                        .HasColumnName("vehicle_type");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("integer")
+                        .HasColumnName("year");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdCustomer");
+
+                    b.ToTable("vehicles");
+                });
+
+            modelBuilder.Entity("ApiTest.Src.Appointment.AppointmentModel", b =>
+                {
+                    b.HasOne("ApiTest.Src.InspectionType.InspectionTypeModel", "InspectionType")
+                        .WithMany("Appointments")
+                        .HasForeignKey("IdInspectionType")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ApiTest.Src.Doctors.DoctorModel", "Veterinarian")
-                        .WithMany()
-                        .HasForeignKey("VeterinarianId")
+                    b.HasOne("ApiTest.Src.Inspector.InspectorModel", "Inspector")
+                        .WithMany("Appointments")
+                        .HasForeignKey("IdInspector")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Pet");
-
-                    b.Navigation("Veterinarian");
-                });
-
-            modelBuilder.Entity("ApiTest.Src.HistoryRecords.HistoryRecordModel", b =>
-                {
-                    b.HasOne("ApiTest.Src.Appointments.AppointmentsModel", "AppointmentsModel")
-                        .WithMany("HistoryRecords")
-                        .HasForeignKey("AppointmentsModelId")
+                    b.HasOne("ApiTest.Src.Vehicle.VehicleModel", "Vehicle")
+                        .WithMany("Appointments")
+                        .HasForeignKey("IdVehicle")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("AppointmentsModel");
+                    b.Navigation("InspectionType");
+
+                    b.Navigation("Inspector");
+
+                    b.Navigation("Vehicle");
                 });
 
-            modelBuilder.Entity("ApiTest.Src.OwnerPets.OwnerPetsModel", b =>
+            modelBuilder.Entity("ApiTest.Src.InspectorInspectionType.InspectorInspectionTypeModel", b =>
                 {
-                    b.HasOne("ApiTest.Src.Owners.OwnerModel", "Owner")
-                        .WithMany("OwnerPets")
-                        .HasForeignKey("OwnerId")
+                    b.HasOne("ApiTest.Src.InspectionType.InspectionTypeModel", "InspectionType")
+                        .WithMany("InspectorInspectionTypes")
+                        .HasForeignKey("IdInspectionType")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ApiTest.Src.Pets.PetModel", "Pet")
-                        .WithMany("OwnerPets")
-                        .HasForeignKey("PetId")
+                    b.HasOne("ApiTest.Src.Inspector.InspectorModel", "Inspector")
+                        .WithMany("InspectorInspectionTypes")
+                        .HasForeignKey("IdInspector")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Owner");
+                    b.Navigation("InspectionType");
 
-                    b.Navigation("Pet");
+                    b.Navigation("Inspector");
                 });
 
-            modelBuilder.Entity("ApiTest.Src.Appointments.AppointmentsModel", b =>
+            modelBuilder.Entity("ApiTest.Src.Vehicle.VehicleModel", b =>
                 {
-                    b.Navigation("HistoryRecords");
+                    b.HasOne("ApiTest.Src.Customer.CustomerModel", "Customer")
+                        .WithMany("Vehicles")
+                        .HasForeignKey("IdCustomer")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("ApiTest.Src.Owners.OwnerModel", b =>
+            modelBuilder.Entity("ApiTest.Src.Customer.CustomerModel", b =>
                 {
-                    b.Navigation("OwnerPets");
+                    b.Navigation("Vehicles");
                 });
 
-            modelBuilder.Entity("ApiTest.Src.Pets.PetModel", b =>
+            modelBuilder.Entity("ApiTest.Src.InspectionType.InspectionTypeModel", b =>
                 {
-                    b.Navigation("OwnerPets");
+                    b.Navigation("Appointments");
+
+                    b.Navigation("InspectorInspectionTypes");
+                });
+
+            modelBuilder.Entity("ApiTest.Src.Inspector.InspectorModel", b =>
+                {
+                    b.Navigation("Appointments");
+
+                    b.Navigation("InspectorInspectionTypes");
+                });
+
+            modelBuilder.Entity("ApiTest.Src.Vehicle.VehicleModel", b =>
+                {
+                    b.Navigation("Appointments");
                 });
 #pragma warning restore 612, 618
         }

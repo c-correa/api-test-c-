@@ -1,13 +1,11 @@
 using ApiTest.Data;
-using ApiTest.Services;
-using ApiTest.Src.Appointments;
-using ApiTest.Src.AvailabilitySchedules;
-using ApiTest.Src.DoctorDetails;
-using ApiTest.Src.Doctors;
-using ApiTest.Src.HistoryRecords;
-using ApiTest.Src.OwnerPets;
-using ApiTest.Src.Owners;
-using ApiTest.Src.Pets.Services;
+using ApiTest.Mapping;
+using ApiTest.Src.Appointment;
+using ApiTest.Src.Customer;
+using ApiTest.Src.InspectionType;
+using ApiTest.Src.Inspector;
+using ApiTest.Src.InspectorInspectionType;
+using ApiTest.Src.Vehicle;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,14 +19,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 );
 
 
-builder.Services.AddScoped<ServicesOwner>();
-builder.Services.AddScoped<ServicesPet>();
-builder.Services.AddScoped<ServicesOwnersPets>();
-builder.Services.AddScoped<ServicesHistoryRecord>();
-builder.Services.AddScoped<ServicesDoctor>();
-builder.Services.AddScoped<ServicesDoctorDetails>();
-builder.Services.AddScoped<ServicesAvailabilitySchedule>();
-builder.Services.AddScoped<ServicesAppointments>();
+builder.Services.AddScoped<AppointmentServices>();
+builder.Services.AddScoped<CustomerServices>();
+builder.Services.AddScoped<InspectorServices>();
+builder.Services.AddScoped<InspectorInspectionTypeServices>();
+builder.Services.AddScoped<InspectionTypeServices>();
+builder.Services.AddScoped<VehicleServices>();
+builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>());
 
 var app = builder.Build();
 

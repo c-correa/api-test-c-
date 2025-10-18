@@ -1,13 +1,14 @@
-using Microsoft.EntityFrameworkCore;
+
+
+using ApiTest.Src.Appointment;
+using ApiTest.Src.Customer;
+using ApiTest.Src.InspectionType;
+using ApiTest.Src.Inspector;
+using ApiTest.Src.InspectorInspectionType;
+using ApiTest.Src.Vehicle;
 using DotNetEnv;
-using ApiTest.Src.Owners;
-using ApiTest.Src.Pets;
-using ApiTest.Src.OwnerPets;
-using ApiTest.Src.Appointments;
-using ApiTest.Src.AvailabilitySchedule;
-using ApiTest.Src.Doctors;
-using ApiTest.Src.DoctorDetails;
-using ApiTest.Src.HistoryRecords;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ApiTest.Data
 {
@@ -32,31 +33,29 @@ namespace ApiTest.Data
             }
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+      protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<OwnerPetsModel>()
-                .HasKey(op => new { op.OwnerId, op.PetId }); // clave compuesta
-
-            modelBuilder.Entity<OwnerPetsModel>()
-                .HasOne(op => op.Owner)
-                .WithMany(o => o.OwnerPets)
-                .HasForeignKey(op => op.OwnerId);
-
-            modelBuilder.Entity<OwnerPetsModel>()
-                .HasOne(op => op.Pet)
-                .WithMany(p => p.OwnerPets)
-                .HasForeignKey(op => op.PetId);
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                foreach (var property in entityType.GetProperties())
+                {
+                    if (property.ClrType == typeof(DateTime))
+                    {
+                        property.SetValueConverter(new ValueConverter<DateTime, DateTime>(
+                            v => v.ToUniversalTime(),   // Convert to UTC when saving
+                            v => DateTime.SpecifyKind(v, DateTimeKind.Utc) // Convert to UTC when reading
+                        ));
+                    }
+                }
+            }
         }
 
-        public DbSet<OwnerModel> Owners { get; set; }
-        public DbSet<PetModel> Pets { get; set; }
-        public DbSet<OwnerPetsModel> OwnersPets { get; set; }
-        public DbSet<AppointmentsModel> Appointments { get; set; }
-        public DbSet<AvailabilityScheduleModel> AvailabilitySchedule { get; set; }
-        public DbSet<DoctorModel> Doctors { get; set; }
-        public DbSet<DoctorDetailsModel> DoctorDetails { get; set; }
-        public DbSet<HistoryRecordModel> HistoryRecords { get; set; }
+
+        public DbSet<AppointmentModel> Appointments { get; set; }
+        public DbSet<CustomerModel> Customers { get; set; }
+        public DbSet<InspectorModel> Inspectors { get; set; }
+        public DbSet<InspectorInspectionTypeModel> InspectorInspectionTypes { get; set; }
+        public DbSet<InspectionTypeModel> InspectionType { get; set; }
+        public DbSet<VehicleModel> Vehicle { get; set; }
     }
 }
